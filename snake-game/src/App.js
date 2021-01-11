@@ -14,7 +14,7 @@ const getRandomCoordinates=()=>{
 
 const initialState={
   food: getRandomCoordinates(),
-  speed:50,
+  speed:10,
   direction: 'RIGHT',
   snakeDots: [
     [0, 0],
@@ -34,7 +34,9 @@ class App extends Component {
   }
   
   componentDidUpdate(){
-    this.checkIfOutOfBorders()
+    this.checkIfOutOfBorders();
+    this.checkIfCollapsed();
+    this.checkIfEat();
   }
 
 
@@ -89,6 +91,36 @@ class App extends Component {
     }
   }
 
+  checkIfCollapsed() {
+    let snake = [...this.state.snakeDots];
+    let head = snake[snake.length - 1];
+    snake.pop();
+    snake.forEach(dot => {
+      if (head[0] == dot[0] && head[1] == dot[1]) {
+        this.onGameOver();
+      }
+    })
+  }
+
+  checkIfEat() {
+    let head = this.state.snakeDots[this.state.snakeDots.length - 1];
+    let food = this.state.food;
+    if (head[0] == food[0] && head[1] == food[1]) {
+      this.setState({
+        food: getRandomCoordinates()
+      })
+      this.enlargeSnake();
+    }
+  }
+
+  enlargeSnake() {
+    let newSnake = [...this.state.snakeDots];
+    newSnake.unshift([])
+    this.setState({
+      snakeDots: newSnake
+    })
+  }
+
   onGameOver(){
     alert(`Game Over! Your snakes length is ${this.state.snakeDots.length}`);
     this.setState(initialState)
@@ -98,7 +130,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="game-area">
+      <div className="game-area">     
         <Snake snakeDots={this.state.snakeDots}/>
         <Food dot={this.state.food}/>
       </div>
