@@ -2,13 +2,21 @@ import React, { Component } from "react";
 import Food from './Food';
 import Snake from './Snake';
 
+
+const getRandomCoordinates=()=>{
+  let min=1,max=98;
+  let x=Math.floor((Math.random()*(max-min+1)+min)/2)*2;
+  let y=Math.floor((Math.random()*(max-min+1)+min)/2)*2;
+  console.log(x)
+  console.log(y)
+  return [x,y]
+}
+
+
 class App extends Component {
 
   state = {
-
-    food: [
-      [50, 50]
-    ],
+    food: getRandomCoordinates(),
     snakeDots: [
       [0, 0],
       [2, 0],
@@ -16,6 +24,7 @@ class App extends Component {
     ]
   }
 
+  
 
   render() {
 
