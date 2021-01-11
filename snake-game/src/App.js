@@ -2,7 +2,7 @@ import React,{Component} from "react";
 
 function App() {
   return (
-    <div > My Game </div>
+    <div className="game-area"> </div>
   );
 }
 
