@@ -24,20 +24,16 @@ class App extends Component {
     ]
   }
 
-  
-
   render() {
-
     return (
       <div className="game-area">
-        <Snake snakeDots={this.state.snakeDots} />
-        <Food food={this.state.food} />
+        <Snake snakeDots={this.state.snakeDots}/>
+        <Food dot={this.state.food}/>
       </div>
-
     );
-
   }
-
 }
+
+
 
 export default App;
